@@ -1,21 +1,27 @@
 apiVersion: ripsaw.cloudbulldozer.io/v1alpha1
 kind: Benchmark
 metadata:
-  name: iperf3-benchmark-example
+  name: iperf3-benchmark
   namespace: benchmark-operator
 spec:
+  metadata_collection: false
   workload:
     name: iperf3
     args:
       pairs: 1
+      image: quay.io/piyushgupta1551/iperf3:ppc64le
+      hostnetwork: true
+      pin: false
+      #pin_server: "node name"
+      #pin_client: "node name"
       port: 5201
       transmit_type: time
       transmit_value: 60
       omit_start: 0
-#     length_buffer: 128K
-      window_size: 64k
+      length_buffer: 128K
+      window_size: 256k
       ip_tos: 0
-      mss: 900
-      streams: 1
+      mss: 1410
+      streams: 8
       extra_options_server: '--forceflush '
       extra_options_client: '-R '
